@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "localstack"
+version = "0.1.0"
+description = ""
+authors = ["yousef aldabbas <yousef.aldabbas@ahli.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.104.1"
+boto3 = "^1.33.6"
+uvicorn = "^0.24.0.post1"
+moto = "^4.2.11"
+localstack-client = "^2.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

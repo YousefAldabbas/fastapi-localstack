@@ -1,0 +1,55 @@
+version: "3.8"
+
+
+services:
+  # localstack-queue:
+  #   container_name: "${LOCALSTACK_DOCKER_NAME-localstack-main}"
+  #   image: localstack/localstack
+  #   ports:
+  #     - "4566:4566"
+  #   environment:
+  #     - DEBUG=1
+  #     - DOCKER_HOST=unix:///var/run/docker.sock
+  #   volumes:
+  #     - "/path/to/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"  # ready hook
+  #     - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #   # create a queue
+  #   command: sh -c "awslocal sqs create-queue --queue-name localstack-queue"
+  #   networks:
+  #     - backend
+
+  fastapi:
+    container_name: "${LOCALSTACK_DOCKER_NAME-fastapi}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8000
+    environment:
+      - ENVIRONMENT=local
+      # - queue_name=localstack-queue
+      # - queue_url=http://localstack:4566
+
+    # networks:
+    #   - backend
+    # depends_on:
+    #   - localstack-queue
+
+  # users_db:
+  #   # sqlite3
+  #   container_name: "${LOCALSTACK_DOCKER_NAME-users-db}"
+  #   image: "sqlite:latest"
+  #   volumes:
+  #     - "./db:/db"
+
+
+
+
+# networks:
+#   backend:
+#     driver: bridge
+
+volumes:
+  localstack:
+    driver: local
